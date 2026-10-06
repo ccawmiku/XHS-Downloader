@@ -8,7 +8,8 @@ __all__ = ["Converter"]
 
 
 class Converter:
-    YAML_ILLEGAL = compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+    # PyYAML rejects C1 controls except U+0085 (NEL).
+    YAML_ILLEGAL = compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\x84\x86-\x9f]")
     INITIAL_STATE = "//script/text()"
     PC_KEYS_LINK = (
         "note",
