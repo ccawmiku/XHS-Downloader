@@ -1,10 +1,12 @@
 import importlib.util
 import json
+import os
 from pathlib import Path
 import unittest
 
 # Load the actual converter without importing the GUI and network entry points.
-spec = importlib.util.spec_from_file_location("converter", Path(__file__).resolve().parents[1] / "source/expansion/converter.py")
+source_root = Path(os.environ.get("XHS_SOURCE_ROOT", Path(__file__).resolve().parents[1]))
+spec = importlib.util.spec_from_file_location("converter", source_root / "source/expansion/converter.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 Converter = module.Converter

@@ -42,7 +42,7 @@ jobs:
           cache-from: type=gha,scope=nas-xhs
           cache-to: type=gha,mode=max,scope=nas-xhs
       - name: Run regression in the actual image
-        run: docker run --rm -v "$PWD/tests:/tests:ro" --entrypoint python xhs-downloader:verify -m unittest discover -s /tests
+        run: docker run --rm -v "$PWD/tests:/tests:ro" -e XHS_SOURCE_ROOT=/app --entrypoint python xhs-downloader:verify -m unittest discover -s /tests
       - uses: docker/build-push-action@v6
         if: startsWith(github.ref, 'refs/tags/')
         with:
